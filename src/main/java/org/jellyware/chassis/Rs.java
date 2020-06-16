@@ -66,7 +66,8 @@ public class Rs {
                 return new URI(cfg.getScheme(), null, cfg.getServerName(), cfg.getPort(),
                         org.jellyware.toolkit.URI.path(
                                 Stream.concat(Stream.concat(Stream.of(cfg.getContextPath(), Rs.PATH),
-                                        path.orElse(List.of()).stream()), op.stream()).collect(Collectors.toList()),
+                                        path.orElse(List.of()).stream()), op.stream()).filter(str -> str != null)
+                                        .collect(Collectors.toList()),
                                 org.jellyware.toolkit.URI.encoder(StandardCharsets.UTF_8)),
                         org.jellyware.toolkit.URI.query(query.orElse(Map.of()),
                                 org.jellyware.toolkit.URI.encoder(StandardCharsets.UTF_8)),
