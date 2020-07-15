@@ -53,7 +53,7 @@ dependencies {
     api 'org.jellyware.toolkit:toolkit:1.0.0-alpha'
     api 'org.jellyware.trinity:trinity:1.0.0-alpha.8'
 
-    implementation('net.sf.jasperreports:jasperreports:6.12.2') {
+    api('net.sf.jasperreports:jasperreports:6.12.2') {
         exclude group: 'com.lowagie'
     }
     runtimeOnly "com.itextpdf:itextpdf:${itextpdfVersion}"

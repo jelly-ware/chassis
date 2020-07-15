@@ -46,7 +46,6 @@ import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
 public class Template {
-	public static final String DIR = "jasper-reports";
 	public static final String DESIGN = "jasper-design";
 	public static final String COMPILED = "jasper-compiled";
 	public static final String DESIGN_EXT = "jrxml";
