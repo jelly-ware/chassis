@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 11
 
-      - name: Build and publish artifact
+      - name: Build and publish artifact.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew clean build publish
