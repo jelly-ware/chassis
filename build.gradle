@@ -56,8 +56,8 @@ dependencies {
     api('net.sf.jasperreports:jasperreports:6.13.0') {
         exclude group: 'com.lowagie'
     }
-    runtimeOnly "com.itextpdf:itextpdf:${itextpdfVersion}"
-    runtimeOnly "com.itextpdf:itext-pdfa:${itextpdfVersion}"
+    api "com.itextpdf:itextpdf:${itextpdfVersion}"
+    api "com.itextpdf:itext-pdfa:${itextpdfVersion}"
 }
 
 test {
