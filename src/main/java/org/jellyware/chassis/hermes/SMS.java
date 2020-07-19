@@ -87,12 +87,4 @@ public interface SMS extends Relay.For {
 
         String msg();
     }
-
-    @Getter
-    @Setter
-    public static class Config {
-        public static final String KEY = "sms";
-        private String url, recipient, sender, msg, display;
-        private int successResponseCode = Response.Status.OK.getStatusCode();
-    }
 }
