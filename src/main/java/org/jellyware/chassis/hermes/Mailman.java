@@ -171,6 +171,6 @@ public interface Mailman extends Relay.For {
         public static final String KEY = "mailman";
         private boolean ttls, auth;
         private int port;
-        private String jndi, host, username, password;
+        private String jndi, host, username, password, address, personal;
     }
 }
