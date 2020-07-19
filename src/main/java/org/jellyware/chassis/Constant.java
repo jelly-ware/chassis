@@ -3,5 +3,5 @@ package org.jellyware.chassis;
 public interface Constant {
     String DEFAULT = "$default";
     String HERMES = "hermes";
-    String Mailman = "mailman";
+    String MAILMAN = "mailman";
 }
