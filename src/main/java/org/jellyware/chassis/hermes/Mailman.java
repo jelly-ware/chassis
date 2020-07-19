@@ -167,8 +167,7 @@ public interface Mailman extends Relay.For {
 
     @Getter
     @Setter
-    public static class Config {
-        public static final String KEY = "mailman";
+    public static class Configuration {
         private boolean ttls, auth;
         private int port;
         private String jndi, host, username, password, address, personal;
