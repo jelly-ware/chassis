@@ -5,7 +5,5 @@ package org.jellyware.chassis.hermes;
  *
  */
 public enum Channel {
-
     EMAIL, SMS;
-
 }

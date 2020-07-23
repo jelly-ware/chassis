@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import lombok.Getter;
 import lombok.Setter;
 
-public interface Mailman extends Relay.For {
+public interface Mailman extends Relay {
     Mailman to(InternetAddress address);
 
     Mailman cc(InternetAddress address);
@@ -28,50 +28,39 @@ public interface Mailman extends Relay.For {
         var bccs = new HashSet<InternetAddress>();
         return new Mailman() {
             @Override
-            public <T> Relay use(T disc) {
-                return new Relay() {
+            public void send(Object disc, LocalDateTime at) {
+                CDI.current().getBeanManager().getEvent().select(new Conveyable.Literal()).fire(new SmtpQueue() {
+
                     @Override
-                    public void send(String cfg, LocalDateTime at) {
-                        CDI.current().getBeanManager().getEvent().select(new Conveyable.Literal())
-                                .fire(new SmtpQueue<T>() {
-
-                                    @Override
-                                    public Email email() {
-                                        return email;
-                                    }
-
-                                    @Override
-                                    public Set<InternetAddress> tos() {
-                                        return tos;
-                                    }
-
-                                    @Override
-                                    public Set<InternetAddress> ccs() {
-                                        return ccs;
-                                    }
-
-                                    @Override
-                                    public Set<InternetAddress> bccs() {
-                                        return bccs;
-                                    }
-
-                                    @Override
-                                    public T disc() {
-                                        return disc;
-                                    }
-
-                                    @Override
-                                    public LocalDateTime due() {
-                                        return at;
-                                    }
-
-                                    @Override
-                                    public String cfg() {
-                                        return cfg;
-                                    }
-                                });
+                    public Email email() {
+                        return email;
                     }
-                };
+
+                    @Override
+                    public Set<InternetAddress> tos() {
+                        return tos;
+                    }
+
+                    @Override
+                    public Set<InternetAddress> ccs() {
+                        return ccs;
+                    }
+
+                    @Override
+                    public Set<InternetAddress> bccs() {
+                        return bccs;
+                    }
+
+                    @Override
+                    public Object disc() {
+                        return disc;
+                    }
+
+                    @Override
+                    public LocalDateTime due() {
+                        return at;
+                    }
+                });
             }
 
             @Override
@@ -149,7 +138,7 @@ public interface Mailman extends Relay.For {
         }
     }
 
-    public static interface SmtpQueue<T> {
+    public static interface SmtpQueue {
         Email email();
 
         Set<InternetAddress> tos();
@@ -158,11 +147,9 @@ public interface Mailman extends Relay.For {
 
         Set<InternetAddress> bccs();
 
-        T disc();
+        Object disc();
 
         LocalDateTime due();
-
-        String cfg();
     }
 
     @Getter

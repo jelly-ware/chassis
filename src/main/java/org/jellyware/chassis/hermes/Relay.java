@@ -2,25 +2,18 @@ package org.jellyware.chassis.hermes;
 
 import java.time.LocalDateTime;
 
-import org.jellyware.chassis.Constant;
-
 public interface Relay {
-    void send(String cfg, LocalDateTime at);
+    void send(Object disc, LocalDateTime at);
 
-    default void send(String cfg) {
-        send(cfg, LocalDateTime.now());
+    default void send(Object disc) {
+        send(disc, LocalDateTime.now());
     };
 
     default void send(LocalDateTime at) {
-        send(Constant.DEFAULT, at);
+        send(null, at);
     };
 
     default void send() {
-        send(Constant.DEFAULT);
+        send(null);
     };
-
-    @FunctionalInterface
-    public static interface For {
-        <T> Relay use(T disc);
-    }
 }

@@ -5,12 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.enterprise.inject.spi.CDI;
-import javax.ws.rs.core.Response;
 
-import lombok.Getter;
-import lombok.Setter;
-
-public interface SMS extends Relay.For {
+public interface SMS extends Relay {
     SMS to(String recipient);
 
     SMS to(Set<String> recipient);
@@ -24,67 +20,52 @@ public interface SMS extends Relay.For {
         return new SMS() {
 
             @Override
-            public <T> Relay use(T disc) {
-                return new Relay() {
+            public void send(Object disc, LocalDateTime at) {
+                CDI.current().getBeanManager().getEvent().select(new Conveyable.Literal()).fire(new Queue() {
+
                     @Override
-                    public void send(String cfg, LocalDateTime at) {
-                        rs.forEach(r -> {
-                            CDI.current().getBeanManager().getEvent().select(new Conveyable.Literal())
-                                    .fire(new Queue<T>() {
-
-                                        @Override
-                                        public T disc() {
-                                            return disc;
-                                        }
-
-                                        @Override
-                                        public LocalDateTime due() {
-                                            return at;
-                                        }
-
-                                        @Override
-                                        public String cfg() {
-                                            return cfg;
-                                        }
-
-                                        @Override
-                                        public String rcpt() {
-                                            return r;
-                                        }
-
-                                        @Override
-                                        public String msg() {
-                                            return msg;
-                                        }
-                                    });
-                        });
+                    public Object disc() {
+                        return disc;
                     }
-                };
+
+                    @Override
+                    public LocalDateTime due() {
+                        return at;
+                    }
+
+                    @Override
+                    public Set<String> recipients() {
+                        return rs;
+                    }
+
+                    @Override
+                    public String message() {
+                        return msg;
+                    }
+                });
             }
 
             @Override
-            public SMS to(Set<String> recipient) {
-                rs.addAll(recipient);
+            public SMS to(Set<String> recipients) {
+                rs.addAll(recipients);
                 return self();
             }
 
             @Override
             public SMS to(String recipient) {
-                rs.add(msg);
+                rs.add(recipient);
                 return self();
             }
         };
     }
 
-    public static interface Queue<T> {
-        T disc();
+    public static interface Queue {
+        Object disc();
 
         LocalDateTime due();
 
-        String cfg();
+        Set<String> recipients();
 
-        String rcpt();
-
-        String msg();
+        String message();
     }
 }
