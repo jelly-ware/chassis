@@ -14,6 +14,6 @@ public interface Relay {
     };
 
     default void send() {
-        send((LocalDateTime) null);
+        send((Object) null);
     };
 }
