@@ -50,7 +50,7 @@ dependencies {
 
     api 'org.jellyware.beef:beef:1.0.0-alpha'
     api 'org.jellyware.toolkit:toolkit:1.0.0-alpha'
-    api 'org.jellyware.trinity:trinity:1.0.0-alpha.10'
+    api 'org.jellyware.trinity:trinity:1.0.0-alpha.11'
 
     api('net.sf.jasperreports:jasperreports:6.13.0') {
         exclude group: 'com.lowagie'
