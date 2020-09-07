@@ -48,10 +48,8 @@ import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
 public class Template {
-	public static final String DESIGN = "jasper-design";
-	public static final String COMPILED = "jasper-compiled";
-	public static final String DESIGN_EXT = "jrxml";
-	public static final String COMPILED_EXT = "jasper";
+	public static final String DESIGN = "jrxml";
+	public static final String COMPILED = "jasper";
 	private final Instance<Report<? extends Report.Data>> reports;
 	private final Instance<Report.Environment> env;
 
