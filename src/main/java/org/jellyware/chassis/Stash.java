@@ -20,11 +20,11 @@ public class Stash {
     }
 
     public URI of(String id, boolean att) {
-        return svc.of(Optional.of(List.of(PATH, name)), (att ? Optional.of(Stash.ATT) : Optional.empty()),
+        return svc.of(Optional.of(List.of(PATH, id)), (att ? Optional.of(Stash.ATT) : Optional.empty()),
                 Optional.empty());
     }
 
     public URI of(String id) {
-        return of(name, false);
+        return of(id, false);
     }
 }
