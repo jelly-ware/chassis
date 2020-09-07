@@ -15,18 +15,12 @@ import java.io.OutputStream;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.sql.Connection;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Inject;
 import javax.inject.Qualifier;
-
-import org.jellyware.chassis.Rs;
-import org.jellyware.chassis.Stash;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -116,26 +110,6 @@ public interface Report<T extends Report.Data> {
 		public JasperReport load(InputStream compiled) throws JRException {
 			Objects.requireNonNull(compiled, "compiled cannot be null");
 			return (JasperReport) JRLoader.loadObject(compiled);
-		}
-	}
-
-	public static class URI {
-		private final Rs.Service svc;
-
-		@Inject
-		public URI(@Rs.Service.For Rs.Service svc) {
-			super();
-			Objects.requireNonNull(svc, "svc cannot be null");
-			this.svc = svc;
-		}
-
-		public java.net.URI of(String name, Template.Streamer.Format format, Map<String, String> params, boolean att) {
-			return svc.of(Optional.of(List.of(Report.PATH, name, format.getExtension())),
-					(att ? Optional.of(Stash.ATT) : Optional.empty()), Optional.of(params));
-		};
-
-		public java.net.URI of(String name, Template.Streamer.Format format, Map<String, String> params) {
-			return of(name, format, params, false);
 		}
 	}
 }
